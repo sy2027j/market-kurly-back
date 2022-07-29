@@ -30,7 +30,7 @@ public class KurlyController {
         return product;
     }
 
-    @GetMapping(value="/select")
+    @GetMapping(value="/main/random")
     public List<Product> getAllProduct() throws Exception{
         List<Product> product = service.findAllInnerFetchJoin();
         return product;
