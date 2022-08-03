@@ -1,11 +1,11 @@
 package com.example.kurly.repository;
 
-import com.example.kurly.model.Product;
+import com.example.kurly.model.entity.Product;
+import com.example.kurly.model.entity.QProduct;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import com.example.kurly.model.QProduct;
 
 import java.util.List;
 
@@ -22,8 +22,11 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Override
     public List<Product> findAllInnerFetchJoin() {
-        int count = 3;
+        int count = 4;
         QProduct product = QProduct.product;
+
+        System.err.println(jpaQuery);
+
         return jpaQuery
                 .select(product)
                 .from(product)

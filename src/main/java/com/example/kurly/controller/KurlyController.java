@@ -1,8 +1,14 @@
 package com.example.kurly.controller;
 
-import com.example.kurly.model.Product;
+import com.example.kurly.model.dto.ProductDTO;
+import com.example.kurly.model.dto.SimpleProductDTO;
+import com.example.kurly.model.entity.Product;
+import com.example.kurly.response.DefaultResponse;
+import com.example.kurly.response.ResponseMessage;
+import com.example.kurly.response.StatusCode;
 import com.example.kurly.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -19,21 +24,32 @@ public class KurlyController {
 
     private final ProductService service;
 
-    @GetMapping(value="/test")
-    public String pdSelect(int no){
-        return "이거";
+    //상품 단건 조회
+    @GetMapping(value = "/select/{no}")
+    public ResponseEntity<?> getProduct(@PathVariable int no) throws Exception {
+        SimpleProductDTO res = service.getProduct(no);
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_SELECT, res), HttpStatus.OK);
     }
 
-    @GetMapping(value="/select/{no}")
-    public Optional<Product> getProduct(@PathVariable int no) throws Exception{
-        Optional<Product> product = service.getProduct(no);
-        return product;
+    //상품 랜덤 조회
+    @GetMapping(value = "/main/random")
+    public ResponseEntity<?> getRandomProduct() throws Exception {
+        List<SimpleProductDTO> product = service.findAllInnerFetchJoin();
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_RANDOM, product), HttpStatus.OK);
     }
 
-    @GetMapping(value="/main/random")
-    public List<Product> getAllProduct() throws Exception{
-        List<Product> product = service.findAllInnerFetchJoin();
-        return product;
+    //판매량이 높은 상품 20개 조회
+    @GetMapping(value = "/main/best")
+    public ResponseEntity<?> getBestProduct() throws Exception {
+        List<SimpleProductDTO> product = service.findBestProduct();
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_BEST, product), HttpStatus.OK);
+    }
+
+    //할인률이 높은 상품 20개 조회
+    @GetMapping(value = "/main/top50")
+    public ResponseEntity<?> getHighDiscount() throws Exception {
+        List<SimpleProductDTO> product = service.findHighDiscountProduct();
+        return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_HIGH_DISCOUNT, product), HttpStatus.OK);
     }
 
 }

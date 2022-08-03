@@ -1,7 +1,7 @@
 package com.example.kurly.config;
 
 import com.example.kurly.model.MysqlJpaTemplates;
-import com.example.kurly.model.Product;
+import com.example.kurly.model.entity.Product;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
