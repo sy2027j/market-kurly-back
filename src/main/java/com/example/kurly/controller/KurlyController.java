@@ -10,16 +10,13 @@ import com.example.kurly.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@RequiredArgsConstructor //class내부의 final객체는 Constructor injection수행
 public class KurlyController {
 
     private final ProductService service;
@@ -39,7 +36,7 @@ public class KurlyController {
     }
 
     //판매량이 높은 상품 20개 조회
-    @GetMapping(value = "/main/best")
+    @PostMapping(value = "/main/best")
     public ResponseEntity<?> getBestProduct() throws Exception {
         List<SimpleProductDTO> product = service.findBestProduct();
         return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_BEST, product), HttpStatus.OK);

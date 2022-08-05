@@ -7,6 +7,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
+import java.io.Console;
 import java.util.List;
 
 @Repository
@@ -24,8 +25,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     public List<Product> findAllInnerFetchJoin() {
         int count = 4;
         QProduct product = QProduct.product;
-
-        System.err.println(jpaQuery);
 
         return jpaQuery
                 .select(product)
