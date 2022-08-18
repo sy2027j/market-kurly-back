@@ -20,7 +20,7 @@ import java.util.Optional;
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "/api")
 public class UserController {
 
     private final UserJpaRepo userJpaRepo;

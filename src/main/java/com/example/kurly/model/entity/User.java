@@ -16,14 +16,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Builder // builder를 사용할수 있게 합니다.
-@Entity // jpa entity임을 알립니다.
-@Getter // user 필드값의 getter를 자동으로 생성합니다.
-@NoArgsConstructor // 인자없는 생성자를 자동으로 생성합니다.
-@AllArgsConstructor // 인자를 모두 갖춘 생성자를 자동으로 생성합니다.
-@Table(name = "user") // 'user' 테이블과 매핑됨을 명시
+@Builder
+@Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "user")
 public class User implements UserDetails {
-    @Id // pk
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="no")
     private Integer no;
@@ -34,6 +35,36 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name="password")
     private String password;
+
+    @Column(name="name")
+    private String name;
+
+    @Column(name="email")
+    private String email;
+
+    @Column(name="phone")
+    private Integer phone;
+
+    @Column(name="addr")
+    private String addr;
+
+    @Column(name="addr_detail")
+    private String addrDetail;
+
+    @Column(name="zipcode")
+    private Integer zipcode;
+
+    @Column(name="gender")
+    private Integer gender;
+
+    @Column(name="birth_year")
+    private Integer year;
+
+    @Column(name="birth_month")
+    private Integer month;
+
+    @Column(name="birth_day")
+    private Integer day;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
