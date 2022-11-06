@@ -1,5 +1,6 @@
 package com.example.kurly.controller;
 
+import com.example.kurly.model.dto.PdOptionDTO;
 import com.example.kurly.model.dto.ProductDTO;
 import com.example.kurly.model.dto.SimpleProductDTO;
 import com.example.kurly.model.entity.Product;
@@ -29,7 +30,11 @@ public class KurlyController {
     @ApiOperation(value = "상품 단건 상세 조회", notes = "상품 단건 정보를 상세 조회한다")
     @GetMapping(value = "/select/{no}")
     public ResponseEntity<?> getProduct(@PathVariable int no) throws Exception {
-        SimpleProductDTO res = service.getProduct(no);
+        ProductDTO res = service.getProduct(no);
+        if(res.getOption()==1){
+            List<PdOptionDTO> options = service.findProductOption(res.getNo());
+            res.setData(options);
+        }
         return new ResponseEntity(DefaultResponse.res(StatusCode.OK, ResponseMessage.PRODUCT_SELECT, res), HttpStatus.OK);
     }
 

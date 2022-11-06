@@ -89,4 +89,31 @@ public class Product {
     public SimpleProductDTO MainList(){
         return SimpleProductDTO.builder().no(no).name(name).price(price).count(count).discount(discount).img(img).build();
     }
+
+    public ProductDTO detailInfo(){
+        return ProductDTO.builder()
+                .no(no)
+                .name(name)
+                .price(price)
+                .count(count)
+                .discount(discount)
+                .img(img)
+                .allergy(allergy)
+                .brand(brand)
+                .category(category)
+                .category2(category2)
+                .deadline(deadline)
+                .delivery(delivery)
+                .des(des)
+                .notice(notice)
+                .option(option)
+                .origin(origin)
+                .packing(packing)
+                .recomm(recomm)
+                .seller(seller)
+                .tag(tag)
+                .unit(unit)
+                .weight(weight)
+                .build();
+    }
 }

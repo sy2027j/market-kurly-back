@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,8 +37,10 @@ public class ProductDTO {
     private String brand;
     private Integer recomm;
 
+    private List<PdOptionDTO> data;
+
     @Builder
-    public ProductDTO(Integer no, String name, String img, Integer price, Integer discount, Integer count, String des, String delivery, String seller, String packing, String unit, String weight, String origin, String deadline, String notice, String allergy, String category, String category2, Integer option, String tag, String brand, Integer recomm) {
+    public ProductDTO(Integer no, String name, String img, Integer price, Integer discount, Integer count, String des, String delivery, String seller, String packing, String unit, String weight, String origin, String deadline, String notice, String allergy, String category, String category2, Integer option, String tag, String brand, Integer recomm, List<PdOptionDTO> data) {
         this.no = no;
         this.name = name;
         this.img = img;
@@ -61,5 +64,6 @@ public class ProductDTO {
         this.brand = brand;
         this.recomm = recomm;
         this.NPrice = (int)Math.floor(price*(0.01*(100-discount)));
+        this.data=data;
     }
 }
