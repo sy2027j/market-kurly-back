@@ -1,11 +1,7 @@
 package com.example.kurly.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +21,6 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="no")
-    private Integer no;
-
     @Column(name="id")
     private String uid;
 
@@ -65,6 +57,10 @@ public class User implements UserDetails {
 
     @Column(name="birth_day")
     private Integer day;
+
+    @Setter
+    @Column(name="refresh_token_value")
+    private String refreshTokenValue;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

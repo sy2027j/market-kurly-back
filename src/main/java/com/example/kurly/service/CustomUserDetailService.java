@@ -1,6 +1,6 @@
 package com.example.kurly.service;
 
-import com.example.kurly.advice.exception.CUserNotFoundException;
+import com.example.kurly.exception.NoSuchDataException;
 import com.example.kurly.repository.UserJpaRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,10 @@ public class CustomUserDetailService implements UserDetailsService {
 
     private final UserJpaRepo userJpaRepo;
 
+    @Override
     public UserDetails loadUserByUsername(String userPk) {
-        return userJpaRepo.findById(Integer.valueOf(userPk)).orElseThrow(CUserNotFoundException::new);
+        //return userJpaRepo.findById(userPk).orElseThrow(CUserNotFoundException::new);
+        return userJpaRepo.findById(userPk)
+                .orElseThrow(()-> new NoSuchDataException("userId = "+userPk));
     }
 }

@@ -1,6 +1,5 @@
 package com.example.kurly.config.security;
 
-
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,7 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
     @Value("spring.jwt.secret")
     private String secretKey;
 
-    private long tokenValidMilisecond = 1000L * 60 * 30; // 5분만 토큰 유효 1분
+    private long tokenValidMilisecond = 1000L * 60 * 15; // 5분만 토큰 유효 1분
     private long refreshValidMilisecond = 1000L * 60 * 30; // 30분만 토큰 유효
 
     private final UserDetailsService userDetailsService;
@@ -84,12 +83,28 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
 
     // Jwt 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
+
+        boolean yn = false;
+
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false;
+        }catch (SecurityException e) {
+            System.err.println("Invalid JWT signature.");
+            throw new JwtException("잘못된 JWT 시그니처");
+        } catch (MalformedJwtException e) {
+            System.err.println("Invalid JWT token.");
+            throw new JwtException("유효하지 않은 JWT 토큰");
+        } catch (ExpiredJwtException e) {
+            System.err.println("Expired JWT token.");
+            throw new JwtException("토큰 기한 만료");
+        } catch (UnsupportedJwtException e) {
+            System.err.println("Unsupported JWT token.");
+        } catch (IllegalArgumentException e) {
+            System.err.println("JWT token compact of handler are invalid.");
+            throw new JwtException("JWT token compact of handler are invalid.");
         }
+        return yn;
     }
 
     //refresh token 정보 얻어내기

@@ -1,21 +1,15 @@
 package com.example.kurly.controller;
 
 import com.example.kurly.advice.exception.CUserNotFoundException;
-import com.example.kurly.model.dto.SimpleProductDTO;
 import com.example.kurly.model.entity.User;
 import com.example.kurly.repository.UserJpaRepo;
 import com.example.kurly.response.*;
 import com.example.kurly.service.ResponseService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
@@ -68,7 +62,7 @@ public class UserController {
     @ApiOperation(value = "회원 삭제", notes = "userId로 회원정보를 삭제한다")
     @DeleteMapping(value = "/user/{msrl}")
     public CommonResult delete(
-            @ApiParam(value = "회원번호", required = true) @PathVariable int msrl) {
+            @ApiParam(value = "회원번호", required = true) @PathVariable String msrl) {
         userJpaRepo.deleteById(msrl);
         // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
         return responseService.getSuccessResult();
