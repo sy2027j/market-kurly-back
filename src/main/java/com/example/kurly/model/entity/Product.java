@@ -21,7 +21,7 @@ public class Product {
     private Integer no;
 
     @Column(name = "pd_name")
-    private String name;
+    private String pdName;
 
     @Column(name = "pd_img")
     private String img;
@@ -87,13 +87,13 @@ public class Product {
     private Integer recomm;
 
     public SimpleProductDTO MainList(){
-        return SimpleProductDTO.builder().no(no).name(name).price(price).count(count).discount(discount).img(img).build();
+        return SimpleProductDTO.builder().no(no).name(pdName).price(price).count(count).discount(discount).img(img).build();
     }
 
     public ProductDTO detailInfo(){
         return ProductDTO.builder()
                 .no(no)
-                .name(name)
+                .name(pdName)
                 .price(price)
                 .count(count)
                 .discount(discount)

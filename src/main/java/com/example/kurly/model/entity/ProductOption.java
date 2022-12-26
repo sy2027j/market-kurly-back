@@ -23,7 +23,7 @@ public class ProductOption {
     private Integer pdNo;
 
     @Column(name = "op_name")
-    private String name;
+    private String opName;
 
     @Column(name = "op_price")
     private Integer price;
@@ -35,7 +35,7 @@ public class ProductOption {
         return PdOptionDTO.builder()
                 .opNo(opNo)
                 .pdNo(pdNo)
-                .name(name)
+                .opName(opName)
                 .price(price)
                 .allergy(allergy)
                 .build();

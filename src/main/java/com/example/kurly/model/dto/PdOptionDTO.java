@@ -10,15 +10,15 @@ public class PdOptionDTO {
 
     private Integer opNo;
     private Integer pdNo;
-    private String name;
+    private String opName;
     private Integer price;
     private String allergy;
 
     @Builder
-    public PdOptionDTO(Integer opNo, Integer pdNo, String name, Integer price, String allergy) {
+    public PdOptionDTO(Integer opNo, Integer pdNo, String opName, Integer price, String allergy) {
         this.opNo = opNo;
         this.pdNo = pdNo;
-        this.name = name;
+        this.opName = opName;
         this.price = price;
         this.allergy = allergy;
     }

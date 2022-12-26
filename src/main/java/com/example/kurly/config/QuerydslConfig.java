@@ -1,6 +1,7 @@
 package com.example.kurly.config;
 
 import com.example.kurly.model.MysqlJpaTemplates;
+import com.example.kurly.model.entity.Cart;
 import com.example.kurly.model.entity.Product;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,7 +23,12 @@ public class QuerydslConfig {
     }
 
     @Bean
-    public JPAQuery<Product> jpaQueryFactory2() {
+    public JPAQuery<Product> jpaQueryFactoryProduct() {
+        return new JPAQuery<>(entityManager, MysqlJpaTemplates.DEFAULT);
+    }
+
+    @Bean
+    public JPAQuery<Cart> jpaQueryFactoryCart() {
         return new JPAQuery<>(entityManager, MysqlJpaTemplates.DEFAULT);
     }
 }

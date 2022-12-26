@@ -1,11 +1,14 @@
 package com.example.kurly.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Builder
 @Entity
@@ -13,6 +16,8 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 
     @Id
@@ -21,7 +26,7 @@ public class Cart {
     private Integer no;
 
     @Column(name = "user_id")
-    private String id;
+    private String userId;
 
     @Column(name = "pd_no")
     private Integer pdNo;
@@ -32,7 +37,7 @@ public class Cart {
     @Column(name = "cart_count")
     private Integer count;
 
-    public Cart() {
+    @Column(name = "reg_dtm")
+    private Date regDtm;
 
-    }
 }
